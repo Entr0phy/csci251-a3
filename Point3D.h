@@ -4,6 +4,8 @@
 
 class Point3D : public Point2D
 {
+    friend bool operator==(const Point3D &, const Point3D &);
+
 protected:
     int z;
     void setDistFrOrigin();

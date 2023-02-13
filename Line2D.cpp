@@ -1,6 +1,12 @@
 #include "Line2D.h"
 #include <cmath>
 
+bool operator==(Line2D &a, Line2D &b)
+{
+    bool xVal = a.getPt1().getX() == b.getPt1().getX() && a.getPt2().getX() == b.getPt2().getX();
+    bool yVal = a.getPt1().getY() == b.getPt1().getY() && a.getPt2().getY() == b.getPt2().getY();
+    return xVal == true && yVal == true;
+}
 // constructor
 Line2D::Line2D(){};
 Line2D::Line2D(Point2D pt1, Point2D pt2)

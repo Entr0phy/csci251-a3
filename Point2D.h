@@ -2,6 +2,8 @@
 #define POINT2D_H
 class Point2D
 {
+    friend bool operator==(Point2D &a, Point2D &b);
+
 protected:
     int x;
     int y;

@@ -4,6 +4,8 @@
 
 class Line2D
 {
+    friend bool operator==(Line2D &, Line2D &);
+
 private:
     Point2D pt1;
     Point2D pt2;

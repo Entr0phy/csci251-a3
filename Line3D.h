@@ -5,6 +5,8 @@
 
 class Line3D : public Line2D
 {
+    friend bool operator==(Line3D &a, Line3D &b);
+
 private:
     Point3D pt1;
     Point3D pt2;

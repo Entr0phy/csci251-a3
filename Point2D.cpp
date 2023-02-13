@@ -1,6 +1,10 @@
 #include "Point2D.h"
 #include <cmath>
 // default constructor
+bool operator==(Point2D &a, Point2D &b)
+{
+    return a.getX() == b.getX() && a.getY() == b.getY();
+}
 Point2D::Point2D()
 {
     Point2D::setX(0);

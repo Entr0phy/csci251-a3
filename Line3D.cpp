@@ -3,6 +3,13 @@
 #include <cmath>
 #include <iostream>
 
+bool operator==(Line3D &a, Line3D &b)
+{
+    bool xVal = a.getPt1().getX() == b.getPt1().getX() && a.getPt2().getX() == b.getPt2().getX();
+    bool yVal = a.getPt1().getY() == b.getPt1().getY() && a.getPt2().getY() == b.getPt2().getY();
+    bool ZVal = a.getPt1().getZ() == b.getPt1().getZ() && a.getPt2().getZ() == b.getPt2().getZ();
+    return xVal == true && yVal == true && ZVal == true;
+}
 Line3D::Line3D(){};
 
 Line3D::Line3D(Point3D pt1, Point3D pt2)

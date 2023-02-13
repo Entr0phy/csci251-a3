@@ -2,6 +2,10 @@
 #include "Point2D.h"
 #include <cmath>
 
+bool operator==(const Point3D &pt1, const Point3D &pt2)
+{
+    return pt1.x == pt2.x && pt1.y == pt2.y && pt1.z == pt2.z;
+}
 Point3D::Point3D(){};
 Point3D::Point3D(int x, int y, int z) : Point2D(x, y)
 {
