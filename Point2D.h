@@ -1,3 +1,5 @@
+#ifndef POINT2D_H
+#define POINT2D_H
 class Point2D
 {
 protected:
@@ -7,13 +9,15 @@ protected:
 
 public:
     // accessor methods
+    Point2D();
+    Point2D(int x, int y);
     int getX();
     int getY();
-    double getDistFrOrigin();
     double getScalarValue();
 
     // mutator method
     void setX(int x);
     void setY(int y);
-    void setDistFrOrigin(double origin);
+    void setDistFrOrigin();
 };
+#endif
