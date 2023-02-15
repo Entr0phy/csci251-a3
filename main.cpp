@@ -18,8 +18,13 @@ std::vector<Point3D> point3d;
 std::vector<Line2D> line2d;
 std::vector<Line3D> line3d;
 
+// global variables
 bool inputfile = false;
+std::string filter = "Point2D";
+std::string sortCriteria = "x-ordinate";
+std::string sortOrder = "ASC";
 
+// method to tokenize a string by taking in a delimiter and input
 std::vector<std::string> stringTokenize(std::string input, std::string delimiter)
 {
     size_t pos = 0;
@@ -199,6 +204,220 @@ void readFile()
         std::cout << counter;
     }
 }
+
+// method to toggle the filtering criteria
+void specifyFilteringCriteria()
+{
+    char option;
+    std::cout << " " << std::endl
+              << std::endl;
+    std::cout << "[ Specifying filtering criteria (current: " << filter << ")]" << std::endl
+              << std::endl;
+
+    std::cout << "a)\t Point2D records" << std::endl;
+    std::cout << "b)\t Point3D records" << std::endl;
+    std::cout << "c)\t Line2D records" << std::endl;
+    std::cout << "d)\t Line3D records" << std::endl
+              << std::endl;
+    std::cout << "Please enter your criteria (a-d): ";
+
+    std::cin >> option;
+
+    switch (option)
+    {
+    case 'a':
+        filter = "Point2D";
+        break;
+
+    case 'b':
+        filter = "Point3D";
+        break;
+
+    case 'c':
+        filter = "Line2D";
+        sortCriteria = "Pt1"; // default sort criteria for line
+        break;
+
+    case 'd':
+        filter = "Line3D";
+        sortCriteria = "Pt1"; // default sort criteria for line
+        break;
+
+    default:
+        std::cout << "Invalid choice entered, please enter valid option" << std::endl;
+        std::cin.clear();
+        specifyFilteringCriteria();
+        break;
+    }
+
+    std::cout << "Filter criteria successfully set to " << filter << "!" << std::endl
+              << std::endl;
+}
+
+// method to filter based off sorting criteria
+void specifySortingCriteria()
+{
+    char option;
+    std::cout << " " << std::endl
+              << std::endl;
+    std::cout << "[ Specifying sorting criteria (current: " << sortCriteria << std::endl
+              << std::endl;
+
+    // filter options for point 2d
+    if (filter == "Point2D")
+    {
+        std::cout << "a)\t X ordinate value" << std::endl;
+        std::cout << "b)\t Y ordinate value" << std::endl;
+        std::cout << "c)\t Dist. Fr Origin value" << std::endl;
+        std::cout << "Please enter your criteria (a-c): ";
+        std::cin >> option;
+
+        switch (option)
+        {
+        case 'a':
+            sortCriteria = "x-ordinate";
+            break;
+
+        case 'b':
+            sortCriteria = "y-ordinate";
+            break;
+
+        case 'c':
+            sortCriteria = "dist fr origin";
+            break;
+
+        default:
+            std::cout << "Invalid option please enter again" << std::endl;
+            std::cin.clear();
+            specifySortingCriteria();
+            break;
+        }
+    }
+
+    // filter options for point 3d
+    else if (filter == "Point3D")
+    {
+        std::cout << "a)\t X ordinate value" << std::endl;
+        std::cout << "b)\t Y ordinate value" << std::endl;
+        std::cout << "c)\t Z ordinate value" << std::endl;
+        std::cout << "d)\t Dist. Fr Origin value" << std::endl;
+        std::cout << "Please enter your criteria (a-d): ";
+        std::cin >> option;
+
+        switch (option)
+        {
+        case 'a':
+            sortCriteria = "x-ordinate";
+            break;
+
+        case 'b':
+            sortCriteria = "y-ordinate";
+            break;
+
+        case 'c':
+            sortCriteria = "z-ordinate";
+            break;
+
+        case 'd':
+            sortCriteria = "dist fr origin";
+            break;
+
+        default:
+            std::cout << "Invalid option please enter again" << std::endl;
+            std::cin.clear();
+            specifySortingCriteria();
+            break;
+        }
+    }
+
+    // filter options for line2d and line3d
+    else
+    {
+        std::cout << "a)\t X and Y coordinate values of Pt1" << std::endl;
+        std::cout << "b)\t X and Y coordinate values of Pt2" << std::endl;
+        std::cout << "c)\t Length value" << std::endl;
+        std::cout << "Please enter your criteria (a-c): ";
+        std::cin >> option;
+
+        switch (option)
+        {
+        case 'a':
+            sortCriteria = "pt1";
+            break;
+
+        case 'b':
+            sortCriteria = "pt2";
+            break;
+
+        case 'c':
+            sortCriteria = "length";
+            break;
+
+        default:
+            std::cout << "Invalid option please enter again" << std::endl;
+            std::cin.clear();
+            specifySortingCriteria();
+            break;
+        }
+    }
+
+    std::cout << "Filter criteria successfully set to " << sortCriteria << std::endl;
+}
+
+// method to specify sorting order
+void specifySortingOrder()
+{
+    char option;
+
+    std::cout << " " << std::endl
+              << std::endl;
+
+    std::cout << "[Specifying sorting order (current: " << sortOrder << ")]" << std::endl
+              << std::endl;
+
+    std::cout << "a)\t ASC (Ascending order)" << std::endl;
+    std::cout << "b)\t DSC (Descending order)" << std::endl
+              << std::endl;
+
+    std::cout << "Please enter your criteria(a-b):";
+    std::cin >> option;
+
+    switch (option)
+    {
+    case 'a':
+        sortOrder = "ASC";
+        break;
+
+    case 'b':
+        sortOrder = "DSC";
+        break;
+
+    default:
+        std::cout << "Invalid option entered, please enter valid option";
+        std::cin.clear();
+        specifySortingOrder();
+        break;
+    }
+    std::cout << "Sorting order successfully set to " << sortOrder << std::endl;
+}
+
+// method to display the main menu
+void printMenu()
+{
+    std::cout << "Student ID\t :7432707" << std::endl;
+    std::cout << "Student Name\t: Lim Pei Ming" << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "Welcome to Assn3 program!" << std::endl
+              << std::endl;
+
+    std::cout << "1)\t Read in data" << std::endl;
+    std::cout << "2)\t Specify filtering criteria (current: " << filter << ")" << std::endl;
+    std::cout << "3)\t Specify sorting criteria (current: " << sortCriteria << ")" << std::endl;
+    std::cout << "4)\t Specify sorting order (current: " << sortOrder << std::endl;
+    std::cout << "5)\t View data" << std::endl;
+    std::cout << "6)\t Store data" << std::endl;
+    std::cout << "7)\t Exit" << std::endl;
+}
 int main()
 {
     /*Point2D test1 = Point2D(-99, -99);
@@ -208,6 +427,7 @@ int main()
     std::cout << test.getScalarValue() << std::endl;
     std::cout << equals(test, test4);
     std::cout << point3d.size();*/
-    readFile();
+    specifyFilteringCriteria();
+    specifySortingCriteria();
     return 0;
 }
