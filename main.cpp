@@ -401,6 +401,68 @@ void specifySortingOrder()
     std::cout << "Sorting order successfully set to " << sortOrder << std::endl;
 }
 
+// method to view the data
+void viewData()
+{
+    std::cout << "" << std::endl
+              << std::endl;
+
+    std::cout << "Filtering criteria: " << filter << std::endl;
+    std::cout << "Sorting criteria: " << sortCriteria << std::endl;
+    std::cout << "Sorting order: " << sortOrder << std::endl;
+
+    if (filter == "Point2D")
+    {
+        // setting the sort criteria
+        for (int i = 0; i < point2d.size(); i++)
+            point2d[i].setSortCrit(sortCriteria);
+
+        // setting the sort order
+        if (sortOrder == "ASC")
+            std::sort(point2d.begin(), point2d.end(), ASC<Point2D>);
+
+        else
+            std::sort(point2d.begin(), point2d.end(), DSC<Point2D>);
+
+        // printing the header
+        std::cout << std::setw(5) << "X" << std::setw(5) << "Y"
+                  << "    Dist. Fr Origin" << std::endl;
+        std::cout << "- - - - - - - - - - - - - - - - - - - " << std::endl;
+
+        // printing the value based off ostream
+        for (int i = 0; i < point2d.size(); i++)
+            std::cout << point2d[i];
+        std::cout << std::endl;
+    }
+
+    else if (filter == "Point3D")
+    {
+        // setting the sort criteria
+        for (int i = 0; i < point3d.size(); i++)
+            point3d[i].setSortCrit(sortCriteria);
+
+        // setting the sort order
+        if (sortOrder == "ASC")
+            std::sort(point3d.begin(), point3d.end(), ASC<Point3D>);
+
+        else
+            std::sort(point3d.begin(), point3d.end(), DSC<Point3D>);
+
+        // printing the header
+        std::cout << std::setw(5) << "X" << std::setw(5) << "Y" << std::setw(5) << "Z"
+                  << "    Dist. Fr Origin" << std::endl;
+        std::cout << "- - - - - - - - - - - - - - - - - - - " << std::endl;
+
+        // printing the value based off ostream
+        for (int i = 0; i < point3d.size(); i++)
+            std::cout << point3d[i];
+        std::cout << std::endl;
+    }
+
+    else if (filter == "Line2D")
+    {
+    }
+}
 // method to display the main menu
 void printMenu()
 {
@@ -427,7 +489,10 @@ int main()
     std::cout << test.getScalarValue() << std::endl;
     std::cout << equals(test, test4);
     std::cout << point3d.size();*/
+    readFile();
     specifyFilteringCriteria();
     specifySortingCriteria();
+    specifySortingOrder();
+    viewData();
     return 0;
 }

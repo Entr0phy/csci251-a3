@@ -3,12 +3,51 @@
 #include <cmath>
 #include <iostream>
 
+// operator overloading
 bool operator==(Line3D &a, Line3D &b)
 {
     bool xVal = a.getPt1().getX() == b.getPt1().getX() && a.getPt2().getX() == b.getPt2().getX();
     bool yVal = a.getPt1().getY() == b.getPt1().getY() && a.getPt2().getY() == b.getPt2().getY();
     bool ZVal = a.getPt1().getZ() == b.getPt1().getZ() && a.getPt2().getZ() == b.getPt2().getZ();
     return xVal == true && yVal == true && ZVal == true;
+}
+
+bool operator>(Line3D &line1, Line3D &line2)
+{
+    if (line1.sortCrit == "pt1")
+    {
+        if (line1.getPt1().getX() == line2.getPt1().getX())
+            return line1.getPt1().getY() > line2.getPt1().getY();
+        return line1.getPt1().getX() > line2.getPt1().getX();
+    }
+
+    else if (line1.sortCrit == "pt2")
+    {
+        if (line1.getPt2().getX() == line2.getPt2().getX())
+            return line1.getPt2().getY() > line2.getPt2().getY();
+        return line1.getPt2().getX() > line2.getPt2().getX();
+    }
+    else
+        return line1.getScalarValue() > line2.getScalarValue();
+}
+
+bool operator<(Line3D &line1, Line3D &line2)
+{
+    if (line1.sortCrit == "pt1")
+    {
+        if (line1.getPt1().getX() == line2.getPt1().getX())
+            return line1.getPt1().getY() < line2.getPt1().getY();
+        return line1.getPt1().getX() < line2.getPt1().getX();
+    }
+
+    else if (line1.sortCrit == "pt2")
+    {
+        if (line1.getPt2().getX() == line2.getPt2().getX())
+            return line1.getPt2().getY() < line2.getPt2().getY();
+        return line1.getPt2().getX() < line2.getPt2().getX();
+    }
+    else
+        return line1.getScalarValue() < line2.getScalarValue();
 }
 Line3D::Line3D(){};
 
