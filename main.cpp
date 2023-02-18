@@ -24,6 +24,14 @@ std::string filter = "Point2D";
 std::string sortCriteria = "x-ordinate";
 std::string sortOrder = "ASC";
 
+// method to de allocate memory
+void clear()
+{
+    point2d.clear();
+    point3d.clear();
+    line2d.clear();
+    line3d.clear();
+}
 // method to tokenize a string by taking in a delimiter and input
 std::vector<std::string> stringTokenize(std::string input, std::string delimiter)
 {
@@ -201,7 +209,10 @@ void readFile()
         }
         int counter = point2d.size() + point3d.size() + line2d.size() + line3d.size();
         counter > 0 ? inputfile = true : inputfile = false;
-        std::cout << counter;
+        std::cout << counter << " records read in successfully!" << std::endl
+                  << std::endl;
+
+        std::cout << "Going back to main menu" << std::endl;
     }
 }
 
@@ -461,8 +472,191 @@ void viewData()
 
     else if (filter == "Line2D")
     {
+        // setting the sorting criteria
+        for (int i = 0; i < line2d.size(); i++)
+        {
+            line2d[i].setSortCrit(sortCriteria);
+        }
+
+        // setting the sort order
+        if (sortOrder == "ASC")
+            std::sort(line2d.begin(), line2d.end(), ASC<Line2D>);
+
+        else
+            std::sort(line2d.begin(), line2d.end(), DSC<Line2D>);
+
+        // printing the header
+        std::cout << std::setw(5) << "P1-X" << std::setw(5) << "P1-Y" << std::setw(9) << "P2-X"
+                  << std::setw(5) << "P2-Y"
+                  << "   Length" << std::endl;
+        std::cout << "- - - - - - - - - - - - - - - - - - - " << std::endl;
+
+        for (int i = 0; i < line2d.size(); i++)
+        {
+            std::cout << line2d[i];
+        }
+        std::cout << std::endl;
+    }
+
+    else
+    {
+        // setting the sorting criteria
+        for (int i = 0; i < line3d.size(); i++)
+        {
+            line3d[i].setSortCrit(sortCriteria);
+        }
+
+        // setting the sort order
+        if (sortOrder == "ASC")
+            std::sort(line3d.begin(), line3d.end(), ASC<Line3D>);
+
+        else
+            std::sort(line3d.begin(), line3d.end(), DSC<Line3D>);
+
+        // printing the header
+        std::cout << std::setw(5) << "P1-X" << std::setw(5) << "P1-Y" << std::setw(5) << "P1-Z" << std::setw(9) << "P2-X"
+                  << std::setw(5) << "P2-Y" << std::setw(5) << "P2-Z"
+                  << "   Length" << std::endl;
+        std::cout << "- - - - - - - - - - - - - - - - - - - - - - - -" << std::endl;
+
+        for (int i = 0; i < line3d.size(); i++)
+        {
+            std::cout << line3d[i];
+        }
+        std::cout << std::endl;
     }
 }
+
+// method to save the file
+void saveData()
+{
+    int counter = 0; // counter to store the number of variables stored in new file
+    std::string name;
+
+    std::cout << "Please enter filename: ";
+    std::cin >> name;
+    std::ofstream myFile(name.c_str());
+
+    if (!myFile)
+        std::cout << "Error creating" << name << ". Please try again" << std::endl;
+
+    else if (filter == "Point2D")
+    {
+        // setting the sort criteria
+        for (int i = 0; i < point2d.size(); i++)
+            point2d[i].setSortCrit(sortCriteria);
+
+        // setting the sort order
+        if (sortOrder == "ASC")
+            std::sort(point2d.begin(), point2d.end(), ASC<Point2D>);
+
+        else
+            std::sort(point2d.begin(), point2d.end(), DSC<Point2D>);
+
+        // printing the header
+        myFile << std::setw(5) << "X" << std::setw(5) << "Y"
+               << "    Dist. Fr Origin" << std::endl;
+        myFile << "- - - - - - - - - - - - - - - - - - - " << std::endl;
+
+        // printing the value based off ostream
+        for (int i = 0; i < point2d.size(); i++)
+        {
+            myFile << point2d[i];
+            counter++;
+        }
+        std::cout << std::endl;
+    }
+
+    else if (filter == "Point3D")
+    {
+        // setting the sort criteria
+        for (int i = 0; i < point3d.size(); i++)
+            point3d[i].setSortCrit(sortCriteria);
+
+        // setting the sort order
+        if (sortOrder == "ASC")
+            std::sort(point3d.begin(), point3d.end(), ASC<Point3D>);
+
+        else
+            std::sort(point3d.begin(), point3d.end(), DSC<Point3D>);
+
+        // printing the header
+        myFile << std::setw(5) << "X" << std::setw(5) << "Y" << std::setw(5) << "Z"
+               << "    Dist. Fr Origin" << std::endl;
+        myFile << "- - - - - - - - - - - - - - - - - - - " << std::endl;
+
+        // printing the value based off ostream
+        for (int i = 0; i < point3d.size(); i++)
+        {
+            myFile << point3d[i];
+            counter++;
+        }
+        std::cout << std::endl;
+    }
+
+    else if (filter == "Line2D")
+    {
+        // setting the sorting criteria
+        for (int i = 0; i < line2d.size(); i++)
+        {
+            line2d[i].setSortCrit(sortCriteria);
+        }
+
+        // setting the sort order
+        if (sortOrder == "ASC")
+            std::sort(line2d.begin(), line2d.end(), ASC<Line2D>);
+
+        else
+            std::sort(line2d.begin(), line2d.end(), DSC<Line2D>);
+
+        // printing the header
+        myFile << std::setw(5) << "P1-X" << std::setw(5) << "P1-Y" << std::setw(9) << "P2-X"
+               << std::setw(5) << "P2-Y"
+               << "   Length" << std::endl;
+        myFile << "- - - - - - - - - - - - - - - - - - - " << std::endl;
+
+        for (int i = 0; i < line2d.size(); i++)
+        {
+            myFile << line2d[i];
+            counter++;
+        }
+        std::cout << std::endl;
+    }
+
+    else
+    {
+        // setting the sorting criteria
+        for (int i = 0; i < line3d.size(); i++)
+        {
+            line3d[i].setSortCrit(sortCriteria);
+        }
+
+        // setting the sort order
+        if (sortOrder == "ASC")
+            std::sort(line3d.begin(), line3d.end(), ASC<Line3D>);
+
+        else
+            std::sort(line3d.begin(), line3d.end(), DSC<Line3D>);
+
+        // printing the header
+        myFile << std::setw(5) << "P1-X" << std::setw(5) << "P1-Y" << std::setw(5) << "P1-Z" << std::setw(9) << "P2-X"
+               << std::setw(5) << "P2-Y" << std::setw(5) << "P2-Z"
+               << "   Length" << std::endl;
+        myFile << "- - - - - - - - - - - - - - - - - - - - - - - -" << std::endl;
+
+        for (int i = 0; i < line3d.size(); i++)
+        {
+            myFile << line3d[i];
+            counter++;
+        }
+        std::cout << std::endl;
+    }
+    myFile.close();
+    std::cout << counter << " records output successfully!" << std::endl
+              << std::endl;
+    std::cout << "Going back to main menu..." << std::endl;
+}
+
 // method to display the main menu
 void printMenu()
 {
@@ -482,17 +676,64 @@ void printMenu()
 }
 int main()
 {
-    /*Point2D test1 = Point2D(-99, -99);
-    Point2D test2 = Point2D(-99, -99);
-    Line2D test = Line2D(test1, test2);
-    Line2D test4 = Line2D(test1, test2);
-    std::cout << test.getScalarValue() << std::endl;
-    std::cout << equals(test, test4);
-    std::cout << point3d.size();*/
-    readFile();
-    specifyFilteringCriteria();
-    specifySortingCriteria();
-    specifySortingOrder();
-    viewData();
+    int exit = 0;
+    int selection = 0;
+
+    while (exit == 0)
+    {
+        printMenu();
+        std::cout << "Please enter your selection";
+        std::cin >> selection;
+        // if user select exits
+        if (selection == 7)
+        {
+            std::cout << "Application will be closing" << std::endl;
+            clear();
+            exit = 1;
+        }
+
+        // if user enters valid selection
+        else if (selection > 0 && selection < 7)
+        {
+            switch (selection)
+            {
+            case 1:
+                readFile();
+                break;
+
+            case 2:
+                specifyFilteringCriteria();
+                break;
+
+            case 3:
+                specifySortingCriteria();
+                break;
+
+            case 4:
+                specifySortingOrder();
+                break;
+
+            case 5:
+                viewData();
+                break;
+
+            case 6:
+                saveData();
+                break;
+
+            default:
+                break;
+            }
+        }
+
+        // if user enters invalid selection
+        else
+        {
+            std::cout << "Please enter valid input" << std::endl;
+            std::cin.clear();
+            std::string discard;
+            getline(std::cin, discard);
+        }
+    }
     return 0;
 }

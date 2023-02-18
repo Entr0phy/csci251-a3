@@ -5,6 +5,7 @@
 
 class Line3D : public Line2D
 {
+    friend std::ostream &operator<<(std::ostream &, Line3D &);
     friend bool operator==(Line3D &a, Line3D &b);
     friend bool operator>(Line3D &a, Line3D &b);
     friend bool operator<(Line3D &a, Line3D &b);

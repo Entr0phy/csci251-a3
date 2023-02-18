@@ -4,6 +4,16 @@
 #include <iostream>
 
 // operator overloading
+std::ostream &operator<<(std::ostream &os, Line3D &line)
+{
+    os << "[" << std::setw(4) << line.getPt1().getX() << "," << std::setw(4)
+       << line.getPt1().getY() << std::setw(4) << line.getPt1().getZ() << "]   "
+       << "[" << std::setw(4) << line.getPt2().getX() << "," << std::setw(4) << line.getPt2().getY()
+       << std::setw(4) << line.getPt2().getZ()
+       << "]   " << std::fixed << std::setprecision(3) << line.getScalarValue() << std::endl;
+    return os;
+}
+
 bool operator==(Line3D &a, Line3D &b)
 {
     bool xVal = a.getPt1().getX() == b.getPt1().getX() && a.getPt2().getX() == b.getPt2().getX();

@@ -7,7 +7,7 @@
 
 class Line2D
 {
-    friend std::ostream &operator<<(std::ostream &, const Point2D &);
+    friend std::ostream &operator<<(std::ostream &, Line2D &);
     friend bool operator==(Line2D &, Line2D &);
     friend bool operator>(Line2D &, Line2D &);
     friend bool operator<(Line2D &, Line2D &);

@@ -2,6 +2,15 @@
 #include <cmath>
 
 // operator overloading
+std::ostream &operator<<(std::ostream &os, Line2D &line)
+{
+    os << "[" << std::setw(4) << line.getPt1().getX() << "," << std::setw(4)
+       << line.getPt1().getY() << "]   "
+       << "[" << std::setw(4) << line.getPt2().getX() << "," << std::setw(4) << line.getPt2().getY()
+       << "]   " << std::fixed << std::setprecision(3) << line.getScalarValue() << std::endl;
+    return os;
+}
+
 bool operator==(Line2D &a, Line2D &b)
 {
     bool xVal = a.getPt1().getX() == b.getPt1().getX() && a.getPt2().getX() == b.getPt2().getX();
